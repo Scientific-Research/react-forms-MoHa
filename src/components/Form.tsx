@@ -5,7 +5,7 @@ const Form = () => {
 	};
 	return (
 		// <div>Form</div>
-		<form onSubmit={(e) => handleFormSubmit(e)}>
+		<form onSubmit={handleFormSubmit}>
 			<div className="mb-3">
 				<label htmlFor="name" className="form-label">
 					Name
