@@ -1,7 +1,11 @@
 const Form = () => {
+	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		console.log('Submitted!');
+		e.preventDefault();
+	};
 	return (
 		// <div>Form</div>
-		<form action="">
+		<form onSubmit={(e) => handleFormSubmit(e)}>
 			<div className="mb-3">
 				<label htmlFor="name" className="form-label">
 					Name
