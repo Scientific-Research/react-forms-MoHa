@@ -4,13 +4,17 @@ const Form = () => {
 	// const nameRef = useRef<HTMLInputElement>(null);
 	// const ageRef = useRef<HTMLInputElement>(null);
 	const [name, setName] = useState('');
-	const [age, setAge] = useState(0);
+	const [age, setAge] = useState('');
 	// to save the values on server, we make an Object:
-	const person = { name: '', age: 0 };
+	const person = { name: '', age: '' };
 
-	const handleChangeName = (e: any) => {
+	const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setName(e.target.value);
 		// console.log(person);
+	};
+
+	const handleChangeAge = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setAge(e.target.value);
 	};
 	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -28,6 +32,7 @@ const Form = () => {
 		// 	// ODER SO
 		// 	person.age = parseInt(ageRef.current.value);
 		// }
+		person.age = age;
 		person.name = name;
 		console.log(person);
 		// console.log('Submitted!');
@@ -40,6 +45,7 @@ const Form = () => {
 					Name
 				</label>
 				<input
+					placeholder="Enter you name here!"
 					// ref={nameRef}
 					id="name"
 					type="text"
@@ -53,10 +59,13 @@ const Form = () => {
 					Age
 				</label>
 				<input
+					placeholder="Enter your age here!"
 					// ref={ageRef}
 					id="age"
 					type="number"
 					className="form-control"
+					value={age}
+					onChange={handleChangeAge}
 				/>
 			</div>
 			<button className="btn btn-primary" type="submit">
