@@ -1,7 +1,17 @@
+import { useRef } from 'react';
+
 const Form = () => {
+	const nameRef = useRef<HTMLInputElement>(null);
+
 	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		console.log('Submitted!');
 		e.preventDefault();
+		// console.log(nameRef.current?.value);
+		// ODER SO
+		if (nameRef.current !== null) {
+			console.log(nameRef.current.value);
+		}
+
+		console.log('Submitted!');
 	};
 	return (
 		// <div>Form</div>
@@ -10,7 +20,12 @@ const Form = () => {
 				<label htmlFor="name" className="form-label">
 					Name
 				</label>
-				<input id="name" type="text" className="form-control" />
+				<input
+					ref={nameRef}
+					id="name"
+					type="text"
+					className="form-control"
+				/>
 			</div>
 			<div className="mb-3">
 				<label htmlFor="age" className="form-label">
