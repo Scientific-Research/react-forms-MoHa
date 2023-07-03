@@ -10,6 +10,8 @@ const Form = () => {
 
 	const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setName(e.target.value);
+		// setName({ ...name, name: e.target.value });
+
 		// console.log(person);
 	};
 
@@ -32,9 +34,9 @@ const Form = () => {
 		// 	// ODER SO
 		// 	person.age = parseInt(ageRef.current.value);
 		// }
-		person.age = age;
 		person.name = name;
-		console.log(person);
+		person.age = age;
+		console.log(`Name: ${person.name} \nAge: ${person.age}`);
 		// console.log('Submitted!');
 	};
 	return (
