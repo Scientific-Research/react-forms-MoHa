@@ -1,9 +1,11 @@
 import { useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 const Form = () => {
 	// const form = useForm();
 	const { register, handleSubmit } = useForm();
+
+	const onSubmit = (data: FieldValues) => console.log(data);
 	// console.log(register('name'));
 	// const nameRef = useRef<HTMLInputElement>(null);
 	// const ageRef = useRef<HTMLInputElement>(null);
@@ -45,7 +47,8 @@ const Form = () => {
 	// };
 	return (
 		// <div>Form</div>
-		<form onSubmit={handleSubmit((data) => console.log(data))}>
+		// <form onSubmit={handleSubmit((data) => console.log(data))}>
+		<form onSubmit={handleSubmit(onSubmit)}>
 			<div className="mb-3">
 				<label htmlFor="name" className="form-label">
 					Name
