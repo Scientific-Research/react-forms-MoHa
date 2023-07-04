@@ -22,7 +22,7 @@ const Form = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<IFormData>({ resolver: zodResolver(schema) });
 	// console.log(formState.errors);
 
@@ -121,7 +121,11 @@ const Form = () => {
 					</p>
 				)}
 			</div>
-			<button className="btn btn-primary" type="submit">
+			<button
+				disabled={!isValid}
+				className="btn btn-primary"
+				type="submit"
+			>
 				Submit
 			</button>
 		</form>
