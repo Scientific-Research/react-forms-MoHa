@@ -58,12 +58,11 @@ const Form = () => {
 			<div className="mb-3">
 				<label htmlFor="category">Category</label>
 				<select
-					className="custom-select form-control"
+					className="form-control"
 					id="category"
 					{...register('Category')}
-					defaultChecked
 				>
-					<option></option>
+					<option defaultChecked></option>
 					<option>Groceries</option>
 					<option>Utilities</option>
 					<option>Entertainment</option>
@@ -78,29 +77,26 @@ const Form = () => {
 			<br />
 			<br />
 			<div className="mb-3">
-				<label htmlFor="category"></label>
+				<label htmlFor="AllCategory"></label>
 				<select
 					className="custom-select"
-					id="category"
-					{...register('Category')}
+					id="AllCategory"
+					// {...register('AllCategory')}
 				>
 					<option defaultChecked>All categories</option>
 					<option>Groceries</option>
 					<option>Utilities</option>
 					<option>Entertainment</option>
 				</select>
-				{errors.Category && (
-					<p className="text-danger">{errors.Category.message}</p>
-				)}
 			</div>
 
 			<table className="table table-bordered">
 				<thead>
 					<tr>
 						<th scope="col">#</th>
-						<th scope="col">First</th>
-						<th scope="col">Last</th>
-						<th scope="col">Handle</th>
+						<th scope="col">Description</th>
+						<th scope="col">Amount</th>
+						<th scope="col">Category</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -110,7 +106,7 @@ const Form = () => {
 						<td>Otto</td>
 						<td>@mdo</td>
 					</tr>
-					<tr>
+					<tr> 
 						<th scope="row">2</th>
 						<td>Jacob</td>
 						<td>Thornton</td>
