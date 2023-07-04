@@ -1,10 +1,19 @@
 import { useRef, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-interface IFormData {
-	name: string;
-	age: number;
-}
+const schema = z.object({
+	name: z.string().min(3),
+	age: z.number().min(18),
+});
+
+type FormData = z.infer<typeof schema>;
+
+// interface IFormData {
+// 	name: string;
+// 	age: number;
+// }
 
 const Form = () => {
 	// const form = useForm();
