@@ -4,11 +4,13 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const schema = z.object({
-	name: z.string().min(3),
-	age: z.number().min(18),
+	name: z.string().min(3, { message: 'Name must be at least 3 characters.' }),
+	age: z
+		.number({ invalid_type_error: 'Age field is required!' })
+		.min(18, { message: 'Age must be at least 18.' }),
 });
 
-type FormData = z.infer<typeof schema>;
+type IFormData = z.infer<typeof schema>;
 
 // interface IFormData {
 // 	name: string;
@@ -21,7 +23,7 @@ const Form = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<IFormData>();
+	} = useForm<IFormData>({ resolver: zodResolver(schema) });
 	// console.log(formState.errors);
 
 	const onSubmit = (data: FieldValues) => console.log(data);
@@ -80,16 +82,19 @@ const Form = () => {
 					className="form-control"
 					// value={name}
 					// onChange={handleChangeName}
-					{...register('name', { required: true, minLength: 3 })}
+					// {...register('name', { required: true, minLength: 3 })}
+					{...register('name')}
 				/>
-				{errors.name?.type === 'required' && (
+				{/* {errors.name?.type === 'required' && ( */}
+				{errors.name && (
 					<p className="text-danger">
-						The name must be at least three characters!
+						{/* The name must be at least three characters! */}
+						{errors.name.message}
 					</p>
 				)}
-				{errors.name?.type === 'minLength' && (
+				{/* {errors.name?.type === 'minLength' && (
 					<p className="text-danger">The name field is required!</p>
-				)}
+				)} */}
 			</div>
 			<div className="mb-3">
 				<label htmlFor="age" className="form-label">
@@ -103,10 +108,17 @@ const Form = () => {
 					className="form-control"
 					// value={age}
 					// onChange={handleChangeAge}
-					{...register('age', { required: true })}
+					// {...register('age', { required: true })}
+					{...register('age', { valueAsNumber: true })}
 				/>
-				{errors.age?.type === 'required' && (
+				{/* {errors.age?.type === 'required' && (
 					<p className="text-danger">The age field is required!</p>
+				)} */}
+				{errors.age && (
+					<p className="text-danger">
+						{/* The name must be at least three characters! */}
+						{errors.age.message}
+					</p>
 				)}
 			</div>
 			<button className="btn btn-primary" type="submit">
