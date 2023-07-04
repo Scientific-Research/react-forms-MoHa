@@ -4,10 +4,12 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const schema = z.object({
-	name: z.string().min(3, { message: 'Name must be at least 3 characters.' }),
-	age: z
-		.number({ invalid_type_error: 'Age field is required!' })
-		.min(18, { message: 'Age must be at least 18.' }),
+	Description: z
+		.string()
+		.min(3, { message: 'Description should be at least 3 characters.' }),
+	Amount: z.number({ invalid_type_error: 'Amount is required!' }),
+	Category: z.string({ invalid_type_error: 'Category is required.' }),
+	// .min(18, { message: 'Age must be at least 18.' }),
 });
 
 type IFormData = z.infer<typeof schema>;
@@ -24,36 +26,52 @@ const Form = () => {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<div className="mb-3">
-				<label htmlFor="name" className="form-label">
-					Name
+				<label htmlFor="description" className="form-label">
+					Description
 				</label>
 				<input
-					placeholder="Enter you name here!"
-					id="name"
+					placeholder="Enter description here!"
+					id="description"
 					type="text"
 					className="form-control"
-					{...register('name')}
+					{...register('Description')}
 				/>
-				{errors.name && (
-					<p className="text-danger">{errors.name.message}</p>
+				{errors.Description && (
+					<p className="text-danger">{errors.Description?.message}</p>
 				)}
 			</div>
 			<div className="mb-3">
-				<label htmlFor="age" className="form-label">
-					Age
+				<label htmlFor="amount" className="form-label">
+					Amount
 				</label>
 				<input
-					placeholder="Enter your age here!"
-					id="age"
+					placeholder="Enter your amount here!"
+					id="amount"
 					type="number"
 					className="form-control"
-					{...register('age', { valueAsNumber: true })}
+					{...register('Amount', { valueAsNumber: true })}
 				/>
-
-				{errors.age && (
-					<p className="text-danger">{errors.age.message}</p>
+				{errors.Amount && (
+					<p className="text-danger">{errors.Amount?.message}</p>
 				)}
 			</div>
+			<div className="form-group">
+				<label htmlFor="category">Category</label>
+				<select
+					className="form-control"
+					id="category"
+					{...register('Category')}
+				>
+					<option></option>
+					<option>Groceries</option>
+					<option>Utilities</option>
+					<option>Entertainment</option>
+				</select>
+				{errors.Category && (
+					<p className="text-danger">{errors.Category?.message}</p>
+				)}
+			</div>
+			<br />
 			<button className="btn btn-primary" type="submit">
 				Submit
 			</button>
