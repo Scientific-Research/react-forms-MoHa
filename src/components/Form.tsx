@@ -37,6 +37,8 @@ const Form = () => {
 		setData([...data, values]);
 	};
 
+	const totalAmount = data.reduce((acc, item) => acc + item.Amount, 0);
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<div className="mb-3">
@@ -112,6 +114,7 @@ const Form = () => {
 						<th scope="col">Description</th>
 						<th scope="col">Amount</th>
 						<th scope="col">Category</th>
+						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -121,11 +124,17 @@ const Form = () => {
 							<td>{item.Description}</td>
 							<td>{`$${item.Amount}.00`}</td>
 							<td>{item.Category}</td>
-							<td>Total {`$${(Total = Total + item.Amount)}`}</td>
+							{/* <td>Total {`$${(Total = Total + item.Amount)}`}</td> */}
 						</tr>
 					))}
 					{/* <td>Total</td> */}
 				</tbody>
+				<tfoot>
+					<tr>
+						<th>Total</th>
+						<th>{`$${totalAmount}.00`}</th>
+					</tr>
+				</tfoot>
 			</table>
 		</form>
 	);
