@@ -85,16 +85,10 @@ const Form = () => {
 					id="category"
 					{...register('Category')}
 				>
-					<option selected>Open this select category</option>
-					<option value="1" label="groceries">
-						Groceries
-					</option>
-					<option value="2" label="utilities">
-						Utilities
-					</option>
-					<option value="3" label="entertainment">
-						Entertainment
-					</option>
+					<option defaultChecked>Open this select category</option>
+					<option label="groceries">Groceries</option>
+					<option label="utilities">Utilities</option>
+					<option label="entertainment">Entertainment</option>
 				</select>
 				{errors.Category && (
 					<p className="text-danger">{errors.Category.message}</p>
