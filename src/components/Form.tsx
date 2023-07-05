@@ -25,6 +25,7 @@ const Form = () => {
 	let Total = 0;
 	const [data, setData] = useState<IFormData[]>([]);
 
+	// if (data.length === 0) return null;
 	const {
 		register,
 		handleSubmit,
@@ -133,7 +134,10 @@ const Form = () => {
 							<td>{`$${item.Amount}.00`}</td>
 							<td>{item.Category}</td>
 							<td>
-								<button onClick={() => handleDelete(index)}>
+								<button
+									className="btn btn-outline-danger"
+									onClick={() => handleDelete(index)}
+								>
 									DELETE
 								</button>
 							</td>
