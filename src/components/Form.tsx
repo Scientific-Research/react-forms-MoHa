@@ -1,6 +1,14 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import { z } from 'zod';
+// import { z } from 'zod';
+import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useState } from 'react';
+
+// interface IData {
+// 	description: string;
+// 	amount: number;
+// 	category: string;
+// }
 
 const schema = z.object({
 	Description: z
@@ -8,19 +16,26 @@ const schema = z.object({
 		.min(3, { message: 'Description should be at least 3 characters.' }),
 	Amount: z.number({ invalid_type_error: 'Amount is required!' }),
 	Category: z.string({ invalid_type_error: 'Category is required.' }),
+	// Total: z.number(),
 	// .min(18, { message: 'Age must be at least 18.' }),
 });
 
 type IFormData = z.infer<typeof schema>;
-
 const Form = () => {
+	let Total = 0;
+	const [data, setData] = useState<IFormData[]>([]);
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<IFormData>({ resolver: zodResolver(schema) });
 
-	const onSubmit = (data: FieldValues) => console.log(data);
+	// const onSubmit = (data: FieldValues) => console.log(data);
+	const onSubmit = (values: IFormData) => {
+		schema.parse(values);
+		setData([...data, values]);
+	};
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
@@ -93,30 +108,23 @@ const Form = () => {
 			<table className="table table-bordered">
 				<thead>
 					<tr>
-						<th scope="col">#</th>
+						{/* <th scope="col">#</th> */}
 						<th scope="col">Description</th>
 						<th scope="col">Amount</th>
 						<th scope="col">Category</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
-					</tr>
-					<tr> 
-						<th scope="row">2</th>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td colSpan="2">Larry the Bird</td>
-						<td>@twitter</td>
-					</tr>
+					{data.map((item, index) => (
+						<tr key={index}>
+							{/* <th scope="row">1</th> */}
+							<td>{item.Description}</td>
+							<td>{`$${item.Amount}.00`}</td>
+							<td>{item.Category}</td>
+							<td>Total {`$${(Total = Total + item.Amount)}`}</td>
+						</tr>
+					))}
+					{/* <td>Total</td> */}
 				</tbody>
 			</table>
 		</form>
