@@ -28,6 +28,7 @@ const Form = () => {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm<IFormData>({ resolver: zodResolver(schema) });
 
@@ -35,6 +36,7 @@ const Form = () => {
 	const onSubmit = (values: IFormData) => {
 		schema.parse(values);
 		setData([...data, values]);
+		reset();
 	};
 
 	const totalAmount = data.reduce((acc, item) => acc + item.Amount, 0);
