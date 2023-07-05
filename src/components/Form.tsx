@@ -80,14 +80,21 @@ const Form = () => {
 			<div className="mb-3">
 				<label htmlFor="category">Category</label>
 				<select
-					className="form-control"
+					className="form-select"
+					aria-label="Default select example"
 					id="category"
 					{...register('Category')}
 				>
-					<option defaultChecked></option>
-					<option>Groceries</option>
-					<option>Utilities</option>
-					<option>Entertainment</option>
+					<option selected>Open this select category</option>
+					<option value="1" label="groceries">
+						Groceries
+					</option>
+					<option value="2" label="utilities">
+						Utilities
+					</option>
+					<option value="3" label="entertainment">
+						Entertainment
+					</option>
 				</select>
 				{errors.Category && (
 					<p className="text-danger">{errors.Category.message}</p>
@@ -100,15 +107,17 @@ const Form = () => {
 			<br />
 			<div className="mb-3">
 				<label htmlFor="AllCategory"></label>
-				<select
-					className="custom-select"
-					id="AllCategory"
-					// {...register('AllCategory')}
-				>
+				<select className="form-select" id="AllCategory">
 					<option defaultChecked>All categories</option>
-					<option>Groceries</option>
-					<option>Utilities</option>
-					<option>Entertainment</option>
+					<option value="1" label="groceries">
+						Groceries
+					</option>
+					<option value="2" label="utilities">
+						Utilities
+					</option>
+					<option value="3" label="entertainment">
+						Entertainment
+					</option>
 				</select>
 			</div>
 
